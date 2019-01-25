@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    >
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/short_description"
+            style="@style/DirectionHeadLine"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginRight="35dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="6"
+            app:layout_constraintStart_toEndOf="@+id/step_number"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Prep the cookie crust." />
+
+        <TextView
+            android:id="@+id/description"
+            style="@style/DirectionBodyText"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/short_description"
+            tools:text='Whisk the graham cracker crumbs, 50 grams (1/4 cup) of sugar, and 1/2 teaspoon of salt together in a medium bowl. Pour the melted butter and 1 teaspoon of vanilla into the dry ingredients and stir together until evenly mixed."     ' />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:contentDescription="@string/shape"
+            app:layout_constraintBottom_toBottomOf="@+id/short_description"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/short_description"
+            app:srcCompat="@drawable/circle_shape" />
+
+        <TextView
+            android:id="@+id/step_number"
+            style="@style/DirectionBodyText"
+            android:layout_width="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            tools:text="2" />
+
+        <ImageView
+            android:id="@+id/hide_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:contentDescription="@string/hide_detail"
+            android:src="@drawable/arrow_up"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/short_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintTop_toTopOf="@+id/short_description" />
+
+        <ImageView
+            android:id="@+id/show_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:contentDescription="@string/show_detail"
+            android:src="@drawable/arrow_down"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/short_description"
+            app:layout_constraintEnd_toEndOf="@+id/hide_detail"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintTop_toTopOf="@+id/short_description" />
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:padding="2dp"
+            android:id="@+id/play-video_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/play_button"
+            android:text="play tutorial"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description"
+            app:fontFamily="@font/alegreya_italic"/>
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/play_button"
+    android:padding="@dimen/widget_margin">
+
+    <LinearLayout
+        android:id="@+id/head_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/widget_recipes_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:fontFamily="@font/alegreya_italic"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="28sp"
+            tools:text="name"
+            />
+
+        <Button
+            android:id="@+id/widget_prev_recipes_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/ic_arrow_left" />
+
+        <Button
+            android:id="@+id/widget_next_recipes_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/ic_arrow_right" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/widget_ingredient_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/head_line">
+
+    </ListView>
+
+    <ImageView
+        android:id="@+id/error_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/wifi_off"
+        android:visibility="gone"/>
+
+
+</RelativeLayout>
