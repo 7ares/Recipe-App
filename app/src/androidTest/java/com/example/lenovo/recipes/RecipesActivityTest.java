@@ -65,22 +65,11 @@ private IdlingResource mIdlingResource;
 
         onView(ViewMatchers.withId(R.id.recipes_name_list)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        mActivityRule.getActivity().getSupportFragmentManager().beginTransaction()
-                .add(R.id.recipes_detail_container,fragment).commit();
+
         intended(allOf(
                 hasComponent(DetailRecipesActivity.class.getName()),
                 hasExtra("recipesName", "Nutella Pie"),
                 hasExtra("recipesId",0)));
-        mActivityRule.getActivity().getSupportFragmentManager().beginTransaction()
-                .add(R.id.recipes_detail_container,fragment).commit();
-
-            onView(withId(R.id.show_ingredient_list)).perform(click());
-            onView(withId(R.id.ingredient_btn_on)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
-
-
-
-            onView(withId(R.id.show_setps)).perform(click());
-            onView(withId(R.id.direction_btn_on)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
 
     }
 

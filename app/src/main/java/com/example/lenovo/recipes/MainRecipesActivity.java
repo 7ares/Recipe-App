@@ -19,6 +19,7 @@ import com.example.lenovo.recipes.IdlingResource.SimpleIdlingResource;
 import com.example.lenovo.recipes.NetworkUtile.InitializeRetroFit;
 import com.example.lenovo.recipes.adapterUtile.RecipesNameAdapter;
 import com.example.lenovo.recipes.recipesDetail.RecipesDetail;
+import com.example.lenovo.recipes.recipesDetail.StepsDetail;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -32,7 +33,7 @@ import retrofit2.Response;
 import static com.example.lenovo.recipes.NetworkUtile.InitializeRetroFit.getClient;
 
 
-public class MainRecipesActivity extends AppCompatActivity  implements RecipesNameAdapter.OnNameClick {
+public class MainRecipesActivity extends AppCompatActivity implements RecipesNameAdapter.OnNameClick {
 
     private ArrayList<RecipesDetail> recipes;
 
@@ -48,20 +49,21 @@ public class MainRecipesActivity extends AppCompatActivity  implements RecipesNa
     @BindView(R.id.recipes_name_list)
     RecyclerView namesList;
     public static boolean isTabletLayout;
-    public static SimpleIdlingResource mIdlingResource ;
+    public static SimpleIdlingResource mIdlingResource;
+
     @Nullable
     @VisibleForTesting
-    public static IdlingResource getIdleResource(){
-        if(mIdlingResource == null)
+    public static IdlingResource getIdleResource() {
+        if (mIdlingResource == null)
             mIdlingResource = new SimpleIdlingResource();
-        return mIdlingResource ;
-        }
+        return mIdlingResource;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_recipes);
-         ButterKnife.bind(this);
+        ButterKnife.bind(this);
         Objects.requireNonNull(getSupportActionBar()).setElevation(0f);
 
         getIdleResource();
@@ -85,20 +87,24 @@ public class MainRecipesActivity extends AppCompatActivity  implements RecipesNa
             @Override
             public void onResponse(@NonNull Call<ArrayList<RecipesDetail>> call, @NonNull final Response<ArrayList<RecipesDetail>> response) {
                 recipes = response.body();
+                ArrayList<String> finalRecipesResult = new ArrayList<>();
+                int index;
+
                 //get names
                 if (recipes != null && recipes.size() > 0) {
                     for (int n = 0; n < recipes.size(); n++) {
                         mRecipesName.add(recipes.get(n).getName());
+                        index = recipes.get(n).getSteps().size() - 1;
+                        finalRecipesResult.add(recipes.get(n).getSteps().get(index).getVideoURL());
                     }
-                   LinearLayoutManager linearLayoutManager;
+                    LinearLayoutManager linearLayoutManager;
                     if (!isTabletLayout)
                         linearLayoutManager = new LinearLayoutManager
                                 (MainRecipesActivity.this, LinearLayoutManager.VERTICAL, false);
                     else
                         linearLayoutManager = new LinearLayoutManager(MainRecipesActivity.this, LinearLayoutManager.HORIZONTAL, false);
-
                     namesList.setLayoutManager(linearLayoutManager);
-                    mAdapter = new RecipesNameAdapter(MainRecipesActivity.this, mRecipesName , MainRecipesActivity.this);
+                    mAdapter = new RecipesNameAdapter(MainRecipesActivity.this, finalRecipesResult ,mRecipesName, MainRecipesActivity.this);
                     namesList.setAdapter(mAdapter);
                     mIdlingResource.setIdleState(true);
                 }
@@ -127,7 +133,7 @@ public class MainRecipesActivity extends AppCompatActivity  implements RecipesNa
         sendRecipesPosition.putExtra(RECIPES_ID, position);
         sendRecipesPosition.putExtra(RECIPES_NAME, name);
         sendRecipesPosition.putParcelableArrayListExtra("ArrayList", (ArrayList<? extends Parcelable>) recipes);
-        sendRecipesPosition.putExtra("ArrayList",recipes);
+        sendRecipesPosition.putExtra("ArrayList", recipes);
         startActivity(sendRecipesPosition);
     }
 
