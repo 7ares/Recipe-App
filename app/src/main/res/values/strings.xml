@@ -1,10 +1,18 @@
 <resources>
     <string name="app_name">Recipes</string>
-<string name="appbar_scrolling_view_behavior">horizontal</string>
+    <string name="appbar_scrolling_view_behavior">horizontal</string>
+
+    <!--*****************************-->
+    <!-- main activity tablet layout -->
+    <!--*****************************-->
+    <string name="compliment">Take Your Pick Of Fantastic Desserts</string>
+    <string name="loading_message">Loading Data.....</string>
+
     <!-- direction fragment items xml (image description) -->
     <string name="show_detail">SHOW DETAIL OF THIS STEP</string>
     <string name="hide_detail">HIDE DETAIL OF THIS STEP</string>
     <string name="shape">Just Circle Shape </string>
+
     <!--*************************-->
     <!-- Activity detail recipes -->
     <!--*************************-->
@@ -14,11 +22,12 @@
     <string name="refresh">Refresh</string>
 
     <!--***************-->
-    <!-- error message -->
+    <!-- error messages -->
     <!--***************-->
     <string name="content_description">network down</string>
     <string name="error_message">No Internet Connection Found Check Your Connection And Try Again</string>
     <string name="refresh_btn">TRY AGAIN</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+
 </resources>

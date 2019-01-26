@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/land_layout"
     android:name="com.example.lenovo.recipes.fragmentsUtile.MainRecipesFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:background="@color/woodVenteer">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recipes_name_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center">
+
+    </android.support.v7.widget.RecyclerView>
 
     <include
         android:id="@+id/network_error_message"

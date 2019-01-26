@@ -5,15 +5,37 @@
     android:layout_height="match_parent"
     android:background="@color/woodVenteer">
 
+    <ImageView
+        android:id="@+id/chocolate"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/chocolate_recipes" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recipes_name_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_below="@+id/chocolate" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="75dp"
+        android:fontFamily="@font/ribeye"
+        android:gravity="center"
+        android:text="@string/compliment"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp" />
 
     <include
         android:id="@+id/network_error_message"
         layout="@layout/netwrok_down"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/chocolate"
         android:visibility="gone" />
 
     <ProgressBar

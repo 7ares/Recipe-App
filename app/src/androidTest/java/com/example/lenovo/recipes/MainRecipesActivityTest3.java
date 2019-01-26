@@ -45,6 +45,9 @@ public class MainRecipesActivityTest3 {
     @Rule
     public ActivityTestRule<MainRecipesActivity> mActivityTestRule = new ActivityTestRule<>(MainRecipesActivity.class);
     private IdlingResource mIdlingResource;
+    @Rule
+    public ActivityTestRule<DetailRecipesActivity> mActivityTest = new ActivityTestRule<>(DetailRecipesActivity.class);
+
 
     @Before
     public void stubAllInternalIntents() {
