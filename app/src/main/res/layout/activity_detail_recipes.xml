@@ -2,7 +2,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/sandDollar">
 
     <FrameLayout
         android:id="@+id/recipes_video_container"
@@ -17,7 +18,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="2"></FrameLayout>
+        app:layout_constraintVertical_weight="2" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -53,6 +54,7 @@
             android:gravity="center"
             android:shadowColor="@color/colorAccent"
             android:text="@string/show_ingredient_btn_title"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintEnd_toStartOf="@+id/show_setps"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_weight="1"
@@ -70,16 +72,30 @@
             app:layout_constraintHorizontal_bias="0.476"
             app:layout_constraintStart_toStartOf="@+id/show_setps" />
 
+        <View
+            android:id="@+id/view2"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorAccent"
+            app:layout_constraintBottom_toTopOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="@+id/show_setps"
+            app:layout_constraintStart_toStartOf="@+id/show_ingredient_list"
+            app:layout_constraintTop_toTopOf="@+id/show_setps"
+            app:layout_constraintVertical_bias="1.0" />
+
         <Button
             android:id="@+id/show_setps"
             style="@style/Widget.AppCompat.Light.ActionButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:text="@string/show_steps_btn_title"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="@+id/ingredient_btn_on"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

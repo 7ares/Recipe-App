@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lenovo.recipes.DetailRecipesActivity;
-import com.example.lenovo.recipes.MainRecipesActivity;
 import com.example.lenovo.recipes.R;
 import com.example.lenovo.recipes.recipesDetail.RecipesDetail;
 import com.example.lenovo.recipes.recipesDetail.StepsDetail;
@@ -52,7 +50,6 @@ public class DirectionAdapter extends RecyclerView.Adapter<DirectionAdapter.View
         int mStepId = stepsDetail.getId();
 
         viewHolder.mVideoLink = stepsDetail.getVideoURL();
-        Log.i(TAG, i + "  " + viewHolder.mVideoLink + " + i");
 
         // if this step contain tutorial video so we show button to make user able to see it
         // if not make play btn invisible
@@ -78,7 +75,7 @@ public class DirectionAdapter extends RecyclerView.Adapter<DirectionAdapter.View
         viewHolder.hideDetail_imageBtn.setOnClickListener(v -> hideDetail(viewHolder));
         viewHolder.showDetail_imageBtn.setOnClickListener(v -> showDetail(viewHolder));
         viewHolder.play_btn.setOnClickListener(v -> {
-            Log.i(TAG, "send intent");
+
             Intent intent = new Intent(mContext, DetailRecipesActivity.class);
             intent.putExtra(VIDEO_KEY, viewHolder.mVideoLink);
             mContext.startActivity(intent);

@@ -15,7 +15,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 
-public class InitializeRetroFit{
+public class InitializeRetroFit {
 
     public static Retrofit getClient() {
 
@@ -32,11 +32,12 @@ public class InitializeRetroFit{
                 .build();
     }
 
-    public static interface RecipesAPI {
+    public interface RecipesAPI {
         @GET("/topher/2017/May/59121517_baking/baking.json")
         Call<ArrayList<RecipesDetail>> getRecipesDetail();
-        }
-        // check network stat if it online or not
+    }
+
+    // check network stat if it online or not
     public static boolean checkNetwork(Context context) {
         boolean isNetworkConnected = false;
 

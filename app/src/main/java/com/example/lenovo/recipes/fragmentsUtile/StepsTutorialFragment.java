@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +14,11 @@ import android.widget.ImageView;
 
 import com.example.lenovo.recipes.NetworkUtile.InitializeRetroFit;
 import com.example.lenovo.recipes.R;
-import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.TrackGroupArray;
-import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
@@ -69,16 +63,15 @@ public class StepsTutorialFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.direction_videos_fragment, container, false);
         ButterKnife.bind(this, rootView);
-        Log.i(TAG, "create view");
 
         player = ExoPlayerFactory.newSimpleInstance(mContext);
         player.addListener(listener);
         mExoPlayerView.setPlayer(player);
 
         if (getArguments() != null) {
-// use this argument when user begin switches between videos
+            // use this argument when user begin switches between videos
             videoUrl = getArguments().getString(VIDEO_KEY);
-// use this argument when app first play so play this default video
+            // use this argument when app first play so play this default video
             if (videoUrl == null || videoUrl.length() == 0)
                 videoUrl = getArguments().getString(DEFAULT_VIDEO_KEY);
         }
@@ -91,14 +84,12 @@ public class StepsTutorialFragment extends Fragment {
         });
 
 
-//check network connection is exist
+        //check network connection is exist
         if (InitializeRetroFit.checkNetwork(mContext)) {
             if (savedInstanceState != null) {
-                Log.i(TAG, "get used");
                 mBeginFrom = savedInstanceState.getLong("seekTo");
                 mDuration = savedInstanceState.getLong("duration");
                 videoUrl = savedInstanceState.getString("videoLink");
-                Log.i(TAG, videoUrl);
 
                 if (mBeginFrom > 0 && mBeginFrom < mDuration) {
                     preparingPLayer(videoUrl);
@@ -108,12 +99,9 @@ public class StepsTutorialFragment extends Fragment {
                     preparingPLayer(videoUrl);
 
             } else {
-                Log.i(TAG, "new Create");
                 if (videoUrl != null)
                     preparingPLayer(videoUrl);
-                Log.i(TAG, "bundle null");
             }
-
         }
         // display error message if connection lost
         else {
@@ -135,19 +123,12 @@ public class StepsTutorialFragment extends Fragment {
             outState.putLong("seekTo", mBeginFrom);
             outState.putLong("duration", mDuration);
 
-            Log.i(TAG, "save " + videoUrl);
-            Log.e(TAG, "save instance " + "getAccess");
-            Log.e(TAG, "is it work" + player.getPlayWhenReady() + "");
-            Log.e(TAG, "duration" + mBeginFrom + "");
-            Log.e(TAG, "Duratoin orgin" + mDuration + "");
         }
 
     }
 
 
     private void preparingPLayer(String video) {
-        Log.i(TAG, "video");
-
         com.google.android.exoplayer2.upstream.DataSource.Factory
                 dataSourceFactory = new DefaultDataSourceFactory(mContext, Util.getUserAgent(mContext,
                 getString(R.string.app_name)));
@@ -162,84 +143,17 @@ public class StepsTutorialFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        Log.e(TAG, "Start");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.i(TAG, "pause");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.i(TAG, "Stoped");
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i(TAG, "destroy");
         player.release();
     }
 
 
     Player.EventListener listener = new Player.EventListener() {
         @Override
-        public void onTimelineChanged(Timeline timeline, @Nullable Object manifest, int reason) {
-            Log.i(TAG, "time line changed " + timeline);
-        }
-
-        @Override
-        public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-            Log.i(TAG, "tracks changed " + trackSelections);
-        }
-
-        @Override
-        public void onLoadingChanged(boolean isLoading) {
-            Log.i(TAG, "on loading changed: " + isLoading);
-
-        }
-
-        @Override
         public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-
-            Log.i(TAG, "on player state changed : " + playWhenReady + " : " + playbackState);
             if (playbackState == 1)
                 mConstrainLayout.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        public void onRepeatModeChanged(int repeatMode) {
-            Log.i(TAG, "on repeadt mode");
-        }
-
-        @Override
-        public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
-            Log.i(TAG, "shuffle mode");
-        }
-
-        @Override
-        public void onPlayerError(ExoPlaybackException error) {
-            Log.i(TAG, "error : " + error.getMessage());
-        }
-
-        @Override
-        public void onPositionDiscontinuity(int reason) {
-            Log.i(TAG, "onposition changed");
-        }
-
-        @Override
-        public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
-            Log.i(TAG, "on play back ");
-        }
-
-        @Override
-        public void onSeekProcessed() {
-            Log.i(TAG, "on seek processed");
         }
     };
 

@@ -46,9 +46,6 @@ public class StepsDetail implements Parcelable {
         return videoURL;
     }
 
-    public String getThumbnailURL() {
-        return thumbnailURL;
-    }
 
     @Override
     public int describeContents() {

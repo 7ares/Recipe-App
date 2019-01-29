@@ -2,7 +2,7 @@ package com.example.lenovo.recipes.widgetUtiles;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -15,8 +15,6 @@ import static com.example.lenovo.recipes.widgetUtiles.RecipesWidget.mRecipesDeta
 import static com.example.lenovo.recipes.widgetUtiles.RecipesWidget.mRecipesListIndex;
 
 public class ListViewWidgetService extends RemoteViewsService {
-    public static String TAG = "ListView ";
-
     private ArrayList<IngredientDetail> mIngredientList;
 
     @Override
@@ -34,24 +32,20 @@ public class ListViewWidgetService extends RemoteViewsService {
 
         @Override
         public void onCreate() {
-            Log.i(TAG, "on create");
         }
 
         @Override
         public void onDataSetChanged() {
-            Log.i(TAG, " set change :" + mRecipesListIndex);
             if (mRecipesDetail != null)
                 mIngredientList = RecipesWidget.mRecipesDetail.get(mRecipesListIndex).getIngredients();
         }
 
         @Override
         public void onDestroy() {
-            Log.i(TAG, "DESTROY");
         }
 
         @Override
         public int getCount() {
-            Log.i(TAG, "COUNT");
             if (mIngredientList != null)
                 return mIngredientList.size();
             else return 0;
@@ -70,9 +64,6 @@ public class ListViewWidgetService extends RemoteViewsService {
                 views.setTextViewText(R.id.widget_ingredient, ingredient);
                 views.setTextViewText(R.id.widget_measure, measure);
                 views.setTextViewText(R.id.widget_quantity, String.valueOf(quantity));
-
-                Log.i(TAG, ingredient);
-
                 return views;
             } else
                 return null;
@@ -80,7 +71,6 @@ public class ListViewWidgetService extends RemoteViewsService {
 
         @Override
         public RemoteViews getLoadingView() {
-            Log.i(TAG, "LOADING DATA");
             return null;
         }
 

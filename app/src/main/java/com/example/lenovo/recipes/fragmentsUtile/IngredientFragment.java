@@ -19,7 +19,8 @@ import java.util.ArrayList;
 
 public class IngredientFragment extends Fragment {
 
-    private IngredientAdapter mAdapter;
+    private ArrayList<String> mQuantity;
+    private boolean isUpdateQuantity;
 
     // create default constructor to can initiate an instance of this fragment
     public IngredientFragment() {
@@ -31,9 +32,24 @@ public class IngredientFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.ingredient_fragment, container, false);
         // get recipe id to display correct data
+        if (getArguments()!= null && getArguments().getStringArrayList("IngredientQuantity") != null) {
+            mQuantity = getArguments().getStringArrayList("IngredientQuantity");
+            isUpdateQuantity = true;
+        }
+
         int id = getArguments() != null ? getArguments().getInt(MainRecipesActivity.RECIPES_ID) : 0;
         ArrayList<RecipesDetail> recipes = getArguments().getParcelableArrayList("ArrayList");
-        mAdapter = new IngredientAdapter(getContext(),recipes ,id);
+
+        IngredientAdapter mAdapter;
+        if (isUpdateQuantity) {
+            assert recipes != null;
+            mAdapter = new IngredientAdapter(getContext(), recipes, id, mQuantity);
+        }
+        else {
+            assert recipes != null;
+            mAdapter = new IngredientAdapter(getContext(), recipes, id);
+        }
+
         // setup recycler view
         RecyclerView ingredientList = rootView.findViewById(R.id.ingredient_list);
 

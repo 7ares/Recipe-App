@@ -46,15 +46,19 @@ public class RecipesNameAdapter extends RecyclerView.Adapter<RecipesNameAdapter.
         switch (i) {
             case 0:
                 viewHolder.pic.setImageResource(R.drawable.nutella);
+                viewHolder.pic.setContentDescription(mNameList.get(i));
                 break;
             case 1:
                 viewHolder.pic.setImageResource(R.drawable.brwonie);
+                viewHolder.pic.setContentDescription(mNameList.get(i));
                 break;
             case 2:
                 viewHolder.pic.setImageResource(R.drawable.yellow_cake);
+                viewHolder.pic.setContentDescription(mNameList.get(i));
                 break;
             case 3:
                 viewHolder.pic.setImageResource(R.drawable.cheesecake);
+                viewHolder.pic.setContentDescription(mNameList.get(i));
                 break;
         }
 

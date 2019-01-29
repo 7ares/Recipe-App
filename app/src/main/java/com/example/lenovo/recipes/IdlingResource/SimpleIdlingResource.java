@@ -5,13 +5,6 @@ import android.support.annotation.Nullable;
 
         import java.util.concurrent.atomic.AtomicBoolean;
 
-/**
- * A very simple implementation of {@link IdlingResource}.
- * <p>
- * Consider using CountingIdlingResource from espresso-contrib package if you use this class from
- * multiple threads or need to keep a count of pending operations.
- */
-
 public class SimpleIdlingResource implements IdlingResource {
 
     @Nullable private volatile ResourceCallback mCallback;

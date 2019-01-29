@@ -41,21 +41,22 @@ import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.core.AllOf.allOf;
 
 @RunWith(AndroidJUnit4.class)
-public class RecipesActivityTest {
+public class IntentTest {
 
     // test to demonstrate Espresso intent test
     @Rule
     public IntentsTestRule<MainRecipesActivity> mActivityRule =
             new IntentsTestRule<>(MainRecipesActivity.class);
 
+    private IdlingResource mIdlingResource;
 
-IngredientFragment fragment = new IngredientFragment();
-private IdlingResource mIdlingResource;
     @Before
     public void stubAllInternalIntents() {
         mIdlingResource = mActivityRule.getActivity().getIdleResource();
-        IdlingRegistry.getInstance().register(mIdlingResource);}
-        @After
+        IdlingRegistry.getInstance().register(mIdlingResource);
+    }
+
+    @After
     public void unregisterIdlingResource() {
         if (mIdlingResource != null) IdlingRegistry.getInstance().unregister(mIdlingResource);
     }
@@ -69,10 +70,9 @@ private IdlingResource mIdlingResource;
         intended(allOf(
                 hasComponent(DetailRecipesActivity.class.getName()),
                 hasExtra("recipesName", "Nutella Pie"),
-                hasExtra("recipesId",0)));
+                hasExtra("recipesId", 0)));
 
     }
-
 
 
 }

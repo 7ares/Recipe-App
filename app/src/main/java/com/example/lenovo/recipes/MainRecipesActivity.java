@@ -39,7 +39,7 @@ public class MainRecipesActivity extends AppCompatActivity implements RecipesNam
     public static final String RECIPES_NAME = "recipesName";
     public static final String UPDATE_WIDGET = "recently watched";
 
-    private ArrayList<RecipesDetail> recipes;
+    public static ArrayList<RecipesDetail> recipes;
     private RecipesNameAdapter mAdapter;
     private ArrayList<String> mRecipesName = new ArrayList<>();
 
@@ -84,12 +84,7 @@ public class MainRecipesActivity extends AppCompatActivity implements RecipesNam
             mLoadingMessage_tv.setVisibility(View.GONE);
         }
 
-        /*DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        screenHeight = displayMetrics.heightPixels;
-        screenWidth = displayMetrics.widthPixels;*/
-
-// fetching data from server
+        // fetching data from server
         InitializeRetroFit.RecipesAPI recipesAPI = getClient().create(InitializeRetroFit.RecipesAPI.class);
         Call<ArrayList<RecipesDetail>> recipesList = recipesAPI.getRecipesDetail();
         // make test waite until background work finished
@@ -149,7 +144,7 @@ public class MainRecipesActivity extends AppCompatActivity implements RecipesNam
 
         sendRecipesPosition.putExtra(RECIPES_ID, position);
         sendRecipesPosition.putExtra(RECIPES_NAME, name);
-        sendRecipesPosition.putParcelableArrayListExtra("ArrayList", recipes);
+        //  sendRecipesPosition.putParcelableArrayListExtra("ArrayList", recipes);
         sendRecipesPosition.putExtra("ArrayList", recipes);
 
         startActivity(sendRecipesPosition);

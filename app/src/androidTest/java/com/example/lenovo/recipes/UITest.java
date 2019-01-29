@@ -22,43 +22,66 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
+import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class testFragment {
+public class UITest {
 
     @Rule
     public ActivityTestRule<MainRecipesActivity> mActivityTestRule = new ActivityTestRule<>(MainRecipesActivity.class);
     private IdlingResource mIdlingResource;
 
-
-
     @Before
     public void stubAllInternalIntents() {
         mIdlingResource = mActivityTestRule.getActivity().getIdleResource();
-        IdlingRegistry.getInstance().register(mIdlingResource);}
+        IdlingRegistry.getInstance().register(mIdlingResource);
+    }
+
     @After
     public void unregisterIdlingResource() {
         if (mIdlingResource != null) IdlingRegistry.getInstance().unregister(mIdlingResource);
     }
+
     @Test
-    public void testFragment() {
-        ViewInteraction appCompatTextView = onView(
-                allOf(withId(R.id.recipes_name), withText("Nutella Pie"),
+    public void mainRecipesActivityTest2() {
+        ViewInteraction appCompatImageView = onView(
+                allOf(withId(R.id.pic_view), withContentDescription("Nutella Pie"),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.support.v7.widget.CardView")),
                                         0),
-                                1),
+                                0),
                         isDisplayed()));
-        appCompatTextView.perform(click());
+        appCompatImageView.perform(click());
+
+        // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction actionMenuItemView = onView(
+                allOf(withContentDescription("serving"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.action_bar),
+                                        1),
+                                0),
+                        isDisplayed()));
+        actionMenuItemView.perform(click());
 
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
@@ -70,35 +93,13 @@ public class testFragment {
         }
 
         ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.show_setps), withText("STEPS"),
+                allOf(withId(android.R.id.button1), withText("Set"),
                         childAtPosition(
-                                allOf(withId(R.id.constraintLayout),
-                                        childAtPosition(
-                                                withClassName(is("android.support.constraint.ConstraintLayout")),
-                                                1)),
-                                3),
-                        isDisplayed()));
-        appCompatButton.perform(click());
-
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        ViewInteraction appCompatButton2 = onView(
-                allOf(withId(R.id.show_ingredient_list), withText("INGREDIENTS"),
-                        childAtPosition(
-                                allOf(withId(R.id.constraintLayout),
-                                        childAtPosition(
-                                                withClassName(is("android.support.constraint.ConstraintLayout")),
-                                                1)),
-                                1),
-                        isDisplayed()));
-        appCompatButton2.perform(click());
+                                childAtPosition(
+                                        withClassName(is("android.widget.ScrollView")),
+                                        0),
+                                3)));
+        appCompatButton.perform(scrollTo(), click());
 
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
@@ -110,14 +111,14 @@ public class testFragment {
         }
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.ingredient), withText("Graham Cracker crumbs"),
+                allOf(withId(R.id.spinner),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(R.id.ingredient_list),
-                                        0),
-                                2),
+                                        withId(R.id.action_bar),
+                                        1),
+                                1),
                         isDisplayed()));
-        textView.check(matches(withText("Graham Cracker crumbs")));
+        textView.check(matches(withText("8 Servings")));
     }
 
     private static Matcher<View> childAtPosition(
