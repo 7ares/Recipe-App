@@ -21,6 +21,7 @@ import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.Util;
 
 import butterknife.BindView;
@@ -36,11 +37,10 @@ public class StepsTutorialFragment extends Fragment {
     public static SimpleExoPlayer player;
     public static String videoUrl;
 
-
     private Long mBeginFrom;
     private Long mDuration;
     private Context mContext;
-
+    private boolean isInitialized;
     @BindView(R.id.video_view)
     PlayerView mExoPlayerView;
     @BindView(R.id.netwrok_error_while_loading)
@@ -87,6 +87,7 @@ public class StepsTutorialFragment extends Fragment {
         //check network connection is exist
         if (InitializeRetroFit.checkNetwork(mContext)) {
             if (savedInstanceState != null) {
+                isInitialized = false;
                 mBeginFrom = savedInstanceState.getLong("seekTo");
                 mDuration = savedInstanceState.getLong("duration");
                 videoUrl = savedInstanceState.getString("videoLink");
@@ -128,6 +129,7 @@ public class StepsTutorialFragment extends Fragment {
     }
 
 
+
     private void preparingPLayer(String video) {
         com.google.android.exoplayer2.upstream.DataSource.Factory
                 dataSourceFactory = new DefaultDataSourceFactory(mContext, Util.getUserAgent(mContext,
@@ -143,11 +145,31 @@ public class StepsTutorialFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        player.release();
+    public void onPause() {
+        super.onPause();
+        if (Util.SDK_INT <= 23) {
+            player.setPlayWhenReady(false);
+            isInitialized = true;
+            Log.i("tutorial", "23");
+        }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (Util.SDK_INT >= 24) {
+            player.setPlayWhenReady(false);
+            isInitialized = true;
+            Log.i("tutorial", ">23");
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("tutorial", "destroy");
+        player.release();
+    }
 
     Player.EventListener listener = new Player.EventListener() {
         @Override
