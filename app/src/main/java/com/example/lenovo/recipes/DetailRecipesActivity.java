@@ -333,8 +333,8 @@ public class DetailRecipesActivity extends AppCompatActivity implements NumberPi
         oldVal = numberServings;
         numberServings = newVal;
         invalidateOptionsMenu();
-        if (newVal != oldVal) {
 
+        if (newVal != oldVal) {
             ingredientQuantityForMany.clear();
             for (int i = 0; i < ingredientQuantityForOne.size(); i++) {
                 ingredientQuantityForMany.add(String.valueOf(ingredientQuantityForOne.get(i) * newVal));
@@ -349,6 +349,8 @@ public class DetailRecipesActivity extends AppCompatActivity implements NumberPi
             mIngredientFragment.setArguments(bundle);
             v_direction_on.setVisibility(GONE);
             v_showIngredients_on.setVisibility(View.VISIBLE);
+            mIsShowStepsBtnOn = false;
+            mIsShowIngredientsBtnOn = true;
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
@@ -360,6 +362,7 @@ public class DetailRecipesActivity extends AppCompatActivity implements NumberPi
     ArrayList<Double> ingredientQuantityForOne = new ArrayList<>();
 
     public void getIngredientQuantityForOne() {
+
         ingredientQuantityForOne.clear();
         ArrayList<IngredientDetail> ingredientDetails = recipes.get(mRecipesId).getIngredients();
         for (int i = 0; i < ingredientDetails.size(); i++) {
